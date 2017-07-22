@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Starcraft Clicker!</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+
+  </head>
+  <body>
+    <div id="page-wrapper">
+      <div id="mineral-wrapper">
+        <div id="mineral-score-wrapper">
+          <span id="mineral-display"></span>
+          <img src="assets/img/mineral.gif" alt="" class="mineral-icon" id="mineral-icon-score">
+        </div>
+
+        <div id="mineral-clicker-wrapper">
+        <img src="assets/img/mineral/0.png" alt="" class="mineral">
+        <img src="assets/img/mineral/1.png" alt="" class="mineral">
+        <img src="assets/img/mineral/2.png" alt="" class="mineral">
+        <img src="assets/img/mineral/3.png" alt="" class="mineral">
+        <img src="assets/img/mineral/0.png" alt="" class="mineral">
+        <img src="assets/img/mineral/1.png" alt="" class="mineral">
+        <img src="assets/img/mineral/2.png" alt="" class="mineral">
+        <img src="assets/img/mineral/3.png" alt="" class="mineral">
+        <img src="assets/img/mineral/0.png" alt="" class="mineral">
+        </div>
+
+        <div id="mineral-workers">
+        </div>
+
+      </div>
+
+      <div id="vespene-wrapper">
+        <div id="vespene-score-wrapper">
+          <img src="assets/img/vespene.gif" alt="" class="vespene-icon" id="vespene-icon-score">
+          <span id="vespene-display"></span>
+        </div>
+        <div id="vespene-clicker-wrapper">
+          <img src="assets/img/vespene.png" alt="" class="vespene">
+          <img src="assets/img/vespene.png" alt="" class="vespene">
+          <img src="assets/img/vespene.png" alt="" class="vespene">
+          <img src="assets/img/vespene.png" alt="" class="vespene">
+        </div>
+
+        <div id="vespene-workers">
+        </div>
+
+      </div>
+
+      <div id="command-center-wrapper-left">
+        <div class="button" id="scv-on-mineral">SCV on Mineral<br>
+          <span id="scv-on-mineral-price-display"></span>
+          <img src="assets/img/mineral.gif" alt="" class="mineral-icon">
+        </div>
+        <div class="button" id="mule-on-mineral">Mule on Mineral<br>
+          <span id="mule-on-mineral-mineral-price-display"></span>
+          <img src="assets/img/mineral.gif" alt="" class="mineral-icon">
+          <span id="mule-on-mineral-vespene-price-display"></span>
+          <img src="assets/img/vespene.gif" alt="" class="vespene-icon">
+        </div>
+      </div>
+      <div id="command-center-wrapper-right">
+        <div class="button" id="scv-on-vespene">SCV on Vespene<br>
+          <span id="scv-on-vespene-price-display"></span>
+          <img src="assets/img/mineral.gif" alt="" class="mineral-icon">
+        </div>
+        <div class="button" id="mule-on-vespene">Mule on Vespene<br>
+          <span id="mule-on-vespene-mineral-price-display"></span>
+          <img src="assets/img/mineral.gif" alt="" class="mineral-icon">
+          <span id="mule-on-vespene-vespene-price-display"></span>
+          <img src="assets/img/vespene.gif" alt="" class="vespene-icon">
+        </div>
+      </div>
+
+      <div id="engineering-bay-wrapper-left">
+        <div class="button" id="scv-mineral-upgrade">Mineral SCV Upgrade<br>
+          <span id="scv-mineral-upgrade-mineral-price-display"></span>
+          <img src="assets/img/mineral.gif" alt="" class="mineral-icon">
+          <span id="scv-mineral-upgrade-vespene-price-display"></span>
+          <img src="assets/img/vespene.gif" alt="" class="vespene-icon">
+        </div>
+        <div class="button" id="mule-mineral-upgrade">Mineral Mule Upgrade<br>
+          <span id="mule-mineral-upgrade-mineral-price-display"></span>
+          <img src="assets/img/mineral.gif" alt="" class="mineral-icon">
+          <span id="mule-mineral-upgrade-vespene-price-display"></span>
+          <img src="assets/img/vespene.gif" alt="" class="vespene-icon">
+        </div>
+      </div>
+      <div id="engineering-bay-wrapper-right">
+        <div class="button" id="scv-vespene-upgrade">Vespene SCV Upgrade<br>
+          <span id="scv-vespene-upgrade-mineral-price-display"></span>
+          <img src="assets/img/mineral.gif" alt="" class="mineral-icon">
+          <span id="scv-vespene-upgrade-vespene-price-display"></span>
+          <img src="assets/img/vespene.gif" alt="" class="vespene-icon">
+        </div>
+        <div class="button" id="mule-vespene-upgrade">Vespene Mule Upgrade<br>
+          <span id="mule-vespene-upgrade-mineral-price-display"></span>
+          <img src="assets/img/mineral.gif" alt="" class="mineral-icon">
+          <span id="mule-vespene-upgrade-vespene-price-display"></span>
+          <img src="assets/img/vespene.gif" alt="" class="vespene-icon">
+        </div>
+      </div>
+
+      <div id="commander-wrapper">
+        <div class="button" id="commander-mining-upgrade">Commander Mining Upgrade<br>
+          <span id="commander-mining-upgrade-mineral-price-display">25</span>
+          <img src="assets/img/mineral.gif" alt="" class="mineral-icon">
+          <span id="commander-mining-upgrade-vespene-price-display">25</span>
+          <img src="assets/img/vespene.gif" alt="" class="vespene-icon">
+        </div>
+
+        <img src="assets/img/advisor.png" alt="" id="advisor">
+      </div>
+    </div><!-- #page-wrapper end -->
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

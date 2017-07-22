@@ -1,0 +1,170 @@
+@font-face {
+  font-family: "Abel";
+  src: url("../fonts/Abel-Regular.ttf");
+}
+
+* {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: grey;
+  font-family: "Abel", sans-serif;
+  background: url('../img/bg3.png');
+  background-size: cover;
+  color: #fff;
+}
+
+#page-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-templaite-rows: repeat(5, 1fr);
+}
+
+#mineral-wrapper {
+  grid-column: 1 / 3;
+  grid-row: 1;
+  min-height: 60vh;
+  font-size: 1.7em;
+  position: relative;
+}
+
+#mineral-score-wrapper {
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
+
+#mineral-clicker-wrapper {
+  display: flex;
+  justify-content: center;
+  padding-top: 2.3em;
+  padding-bottom: 1em;
+}
+
+#mineral-workers {
+  display: flex;
+  justify-content: center;
+}
+
+#vespene-wrapper {
+  grid-column: 3 / -1;
+  grid-row: 1;
+  min-height: 60vh;
+  font-size: 1.7em;
+  position: relative;
+}
+
+#vespene-score-wrapper {
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+
+#vespene-clicker-wrapper {
+  display: flex;
+  justify-content: center;
+  padding-top: 1em;
+}
+
+#vespene-workers {
+  display: flex;
+  justify-content: center;
+}
+
+
+#command-center-wrapper-left {
+  grid-column: 1 / 3;
+  grid-row: 2;
+  display: flex;
+  justify-content: center;
+}
+
+#command-center-wrapper-right {
+  grid-column: 3 / -1;
+  grid-row: 2;
+  display: flex;
+  justify-content: center;
+}
+
+#engineering-bay-wrapper-left {
+  grid-column: 1 / 3;
+  grid-row: 3;
+  display: flex;
+  justify-content: center;
+}
+
+#engineering-bay-wrapper-right {
+  grid-column: 3 / -1;
+  grid-row: 3;
+  display: flex;
+  justify-content: center;
+}
+
+#commander-wrapper {
+  grid-column: 1 / -1;
+  grid-row: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#advisor {
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 10px;
+}
+
+.mineral-scored {
+  position: absolute;
+  font-size: 16px;
+  top: 40px;
+  right: 40px;
+  opacity: 1;
+  transition: 3s ease-out;
+}
+
+.vespene-scored {
+  position: absolute;
+  font-size: 16px;
+  top: 40px;
+  left: 40px;
+  opacity: 1;
+  transition: 3s ease-out;
+}
+
+.button {
+  margin: 0.5em 0.5em;
+  padding: 0.7em 1.3em;
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 10px;
+  text-align: center;
+  background: rgba(0,0,0,.5);
+  cursor: default;
+  transition: .3s;
+}
+
+.button span {
+  cursor: default;
+}
+
+.mineral, .vespene {
+  transition: .15s ease-in-out;
+}
+
+.mineral-icon, .vespene-icon {
+  padding: 0 0.3em;
+}
