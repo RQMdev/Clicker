@@ -164,6 +164,7 @@ var thatsABeginning = false;
 var insufficientVespeneGas = false;
 var youAreOnTheRightPath = false;
 var youKnowItsUseless = false;
+var thisIsBusiness = false;
 
 function hideButtons(){
   if ( mineralScore >= scvOnMineralPrice){
@@ -364,6 +365,11 @@ function achievements(){
   if ( scvCount >= 100 && youKnowItsUseless == false){
     achievementPopUp('You know it\'s useless?', 'Come on, you\'ve clicked a thousand time on something totally useless. Focus dude, you are here to work!');
     youKnowItsUseless = true;
+    achievementScore++;
+  }
+  if ( (scvOnMineralCount + scvOnVespeneCount) >= 10 && thisIsBusiness == false){
+    achievementPopUp('this is bussiness', 'You got 10 SCV deployed, we will need many more, but i guess it\'s a start.');
+    thisIsBusiness = true;
     achievementScore++;
   }
   // refresh achievement Display
