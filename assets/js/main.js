@@ -340,7 +340,7 @@ function achievements(){
     achievementScore++;
   }
   if ( mineralScore >= 1000 && thatsABeginning == false){
-    achievementPopUp('That\'s a beginning', 'Not enough minerals. Just kidding, don\'t forget to spend what you have though.');
+    achievementPopUp('That\'s a beginning', 'Not enough minerals. Just kidding, don\'t forget to spend what you have though.<br>1000 Mineral Achievement.');
     var audio = new Audio('assets/sounds/notEnoughMinerals.wav');
     audio.volume = 0.5;
     audio.play();
@@ -348,7 +348,7 @@ function achievements(){
     achievementScore++;
   }
   if ( vespeneScore >= 1000 && insufficientVespeneGas == false){
-    achievementPopUp('insufficient vespene gas', 'You want millions of gas! but i guess that\'s a start.');
+    achievementPopUp('insufficient vespene gas', 'You want millions of gas! but i guess that\'s a start.<br>1000 Vespine Gas Achievement.');
     var audio = new Audio('assets/sounds/InsufficientVespeneGas.wav');
     audio.volume = 0.5;
     audio.play();
@@ -356,7 +356,7 @@ function achievements(){
     achievementScore++;
   }
   if ( mineralScore >= 10000 && youAreOnTheRightPath == false){
-    achievementPopUp('You are on the right path', '10,000 is good, we are close to build our first Battlecruiser, but it\'s an entire fleet we need against the Swarn.');
+    achievementPopUp('You are on the right path', '10,000 Minerals is good, we are close to build our first Battlecruiser, but it\'s an entire fleet we need against the Swarn.');
     var audio = new Audio('assets/sounds/YouWin.wav');
     audio.volume = 0.5;
     audio.play();
@@ -374,7 +374,7 @@ function achievements(){
     achievementScore++;
   }
   if ( (muleOnMineralCount + muleOnVespeneCount) >= 6 && inAHurry == false){
-    achievementPopUp('In a hurry', 'I\'ve only see once a hurry like this... zerglings.');
+    achievementPopUp('In a hurry', 'I\'ve only see once a hurry like this... zerglings.<br>Deploy 6 Mules Simultaneously Achievement.');
     inAHurry = true;
     achievementScore++;
   }
@@ -649,6 +649,8 @@ muleOnVespene.onclick = function(){
     newMule.class = 'mule';
     newMule.src = 'assets/img/mule/'+Math.floor((Math.random() * 25))+'.png';
     vespeneWorkers.appendChild(newMule);
+    // Count
+    muleOnVespeneCount++;
     // Audio Mule Spawning
     muleSpawningSound.play();
     // Add autoclick
@@ -676,6 +678,8 @@ muleOnVespene.onclick = function(){
     setTimeout(function(){
       clearInterval(mining);
       vespeneWorkers.removeChild(newMule);
+      // Count
+      muleOnVespeneCount--;
     }, muleVespeneDuration);
   } else {
     disabledSound.play();
