@@ -349,7 +349,7 @@ function achievements(){
   }
   if ( vespeneScore >= 1000 && insufficientVespeneGas == false){
     achievementPopUp('insufficient vespene gas', 'You want millions of gas! but i guess that\'s a start.');
-    var audio = new Audio('assets/sounds/insufficientVespeneGas.wav');
+    var audio = new Audio('assets/sounds/InsufficientVespeneGas.wav');
     audio.volume = 0.5;
     audio.play();
     insufficientVespeneGas = true;
