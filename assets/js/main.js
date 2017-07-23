@@ -46,6 +46,30 @@ var muleVespeneUpgrade = document.getElementById('mule-vespene-upgrade');
 // Commander Upgrade
 var commanderMiningUpgrade = document.getElementById('commander-mining-upgrade');
 
+// Audio Vars
+var vespeneSound = new Audio('assets/sounds/OutOfGas.wav');
+vespeneSound.volume = 0.2;
+var scvSpawningSound = new Audio('assets/sounds/scvGoodToGoSir.wav');
+scvSpawningSound.volume = 0.6;
+var muleSpawningSound = new Audio('assets/sounds/pieceOfMeBoy.wav');
+muleSpawningSound.volume = 0.6;
+var disabledSound = new Audio('assets/sounds/button.wav');
+disabledSound.volume = 0.5;
+var upgradeSound = new Audio('assets/sounds/upgradeComplete.wav');
+upgradeSound.volume = 0.4;
+var researchSound = new Audio('assets/sounds/researchComplete.wav');
+researchSound.volume = 0.5;
+
+// Count Vars
+var scvOnMineralCount = 0;
+var scvOnVespeneCount = 0;
+var muleOnMineralCount = 0;
+var muleOnVespeneCount = 0;
+var scvMineralUpgradeCount = 0;
+var scvVespeneUpgradeCount = 0;
+var muleMineralUpgradeCount = 0;
+var muleVespeneUpgradeCount = 0;
+var commanderMiningUpgradeCount = 0;
 
 // Score
 var mineralScore = 0;
@@ -108,6 +132,7 @@ var scvMineralMiningSpeed = 2000;
 var scvVespeneMiningSpeed = 2000;
 var muleMineralMiningSpeed = 500;
 var muleVespeneMiningSpeed = 500;
+
 // Mining Speed Augmentation
 var scvMineralMiningSpeedAugmentation = 0.9;
 var scvVespeneMiningSpeedAugmentation = 0.9;
@@ -117,6 +142,22 @@ var muleVespeneMiningSpeedAugmentation = 0.9;
 // Mules Duration
 var muleMineralDuration = 15000;
 var muleVespeneDuration = 15000;
+
+// Achievements Vars
+var mineralRushPioneer = false;
+var vespeneRushPioneer = false;
+var youAintAlone = false;
+var thereIsALeak = false;
+var muleGoesFast = false;
+var thereIsAReservoirHere = false;
+var betterToolsForBetterWorkers = false;
+var letsGoDeeper = false;
+var eenyMeenyMiningMoe = false;
+var fasterScvMineMine = false;
+var feelThePower = false;
+var thatsABeginning = false;
+var insufficientVespeneGas = false;
+var youAreOnTheRightPath = false;
 
 function hideButtons(){
   if ( mineralScore >= scvOnMineralPrice){
@@ -192,6 +233,99 @@ function hideButtons(){
   }
 };
 
+function achievementPopUp(title, text){
+  var achievementDiv = document.createElement('div');
+  achievementDiv.classList.add('achievement');
+  var achievementAdvisor = document.createElement('img');
+  achievementAdvisor.classList.add('advisor');
+  achievementAdvisor.src = 'assets/img/advisor.png';
+  achievementDiv.appendChild(achievementAdvisor);
+  var achievementTitle = document.createElement('span');
+  achievementTitle.classList.add('title');
+  achievementTitle.innerHTML = title;
+  achievementDiv.appendChild(achievementTitle);
+  var achievementP = document.createElement('p');
+  achievementP.innerHTML = text;
+  achievementDiv.appendChild(achievementP);
+  body.appendChild(achievementDiv);
+  var trick = achievementDiv.offsetWidth;
+  achievementDiv.style.opacity = '1';
+  setTimeout(function(){
+    achievementDiv.style.opacity = '0';
+  }, 8000);
+  setTimeout(function(){
+    body.removeChild(achievementDiv);
+  }, 8350);
+};
+
+
+function achievements(){
+  if ( mineralScore > 0 && mineralRushPioneer == false){
+      achievementPopUp('Mineral Rush Pioneer', 'Congrats! You find how to be rich! Keep mining before the Zerg attacks!');
+    mineralRushPioneer = true;
+  }
+  if ( vespeneScore > 0 && vespeneRushPioneer == false){
+      achievementPopUp('Vespene Rush Pioneer', 'What matter ain\'t always shiny. Vespine Gas will help you build better workers and upgrade them.');
+    vespeneRushPioneer = true;
+  }
+  if ( scvOnMineralCount > 0 && youAintAlone == false){
+    achievementPopUp('You Ain\'t Alone', 'SCV are going to mine for you, treat them nicely.');
+    youAintAlone = true;
+  }
+  if ( scvOnVespeneCount > 0 && thereIsALeak == false){
+    achievementPopUp('There Is A Gas Leak Boys', 'Smells weird here, that SCV is going to bring us some of this gas.');
+    thereIsALeak = true;
+  }
+  if ( muleOnMineralCount > 0 && muleGoesFast == false){
+    achievementPopUp('Mule Goes Fast', 'This is reinforcement ! Mules won\'t last forever but they\'re a bloody damn help!');
+    muleGoesFast = true;
+  }
+  if ( muleOnVespeneCount > 0 && thereIsAReservoirHere == false){
+    achievementPopUp('There is a reservoir here', 'Looks like your boys have found a big reservoir near by, let\'s dig it!');
+    thereIsAReservoirHere = true;
+  }
+  if ( scvMineralUpgradeCount > 0 && betterToolsForBetterWorkers == false){
+    achievementPopUp('Better tools for better workers', 'Now your SCV are going faster and they can carry more minerals, that\'s seem to be a good deal!');
+    betterToolsForBetterWorkers = true;
+  }
+  if ( scvVespeneUpgradeCount > 0 && letsGoDeeper == false){
+    achievementPopUp('let\'s go deeper', 'SCV are now gathering gas way better! Be careful with that gas though, we\'re not sure if it\'s stable...');
+    letsGoDeeper = true;
+  }
+  if ( muleMineralUpgradeCount > 0 && eenyMeenyMiningMoe == false){
+    achievementPopUp('Eeny Meeny Mining Moe', 'Catch a Zergling by the toe, if he hollers, don\'t let him go!');
+    eenyMeenyMiningMoe = true;
+  }
+  if ( muleVespeneUpgradeCount > 0 && fasterScvMineMine == false){
+    achievementPopUp('Faster, Scv! Mine! Mine!', 'Keep on grinding, Pussycat.');
+    fasterScvMineMine = true;
+  }
+  if ( commanderMiningUpgradeCount > 0 && feelThePower == false){
+    achievementPopUp('Feel the power', 'Now you can mine faster. Keep on clicking, the Swarm is not far away.');
+    feelThePower = true;
+  }
+  if ( mineralScore >= 1000 && thatsABeginning == false){
+    achievementPopUp('That\'s a beginning', 'Not enough minerals. Just kidding, don\'t forget to spend what you have though.');
+    var audio = new Audio('assets/sounds/notEnoughMinerals.wav');
+    audio.volume = 0.5;
+    audio.play();
+    thatsABeginning = true;
+  }
+  if ( vespeneScore >= 1000 && insufficientVespeneGas == false){
+    achievementPopUp('insufficient vespene gas', 'You want millions of gas! but i guess that\'s a start.');
+    var audio = new Audio('assets/sounds/insufficientVespeneGas.wav');
+    audio.volume = 0.5;
+    audio.play();
+    insufficientVespeneGas = true;
+  }
+  if ( mineralScore >= 10000 && youAreOnTheRightPath == false){
+    achievementPopUp('You are on the right path', '10,000 is good, we are close to build our first Battlecruiser, but it\'s an entire fleet we need against the Swarn.');
+    var audio = new Audio('assets/sounds/YouWin.wav');
+    audio.volume = 0.5;
+    audio.play();
+    youAreOnTheRightPath = true;
+  }
+};
 
 
 
@@ -228,6 +362,7 @@ body.onload = function(){
   commanderMiningUpgrade_VespenePriceDisplay.innerHTML = commanderMiningUpgrade_VespenePrice;
 
   hideButtons();
+  achievements();
 };
 
 // Refreshing browser trick (doesnt seem to work :p)
@@ -258,8 +393,13 @@ for (var i = 0; i < mineral.length; i++){
     setTimeout(function(){
       mineralWrapper.removeChild(mineralScored);
     }, 3000);
+    // Audio
+    var audio = new Audio('assets/sounds/scvRepair/'+Math.floor((Math.random() * 5))+'.wav');
+    audio.volume = 0.3;
+    audio.play();
 
     hideButtons();
+    achievements();
   };
 };
 
@@ -284,7 +424,10 @@ for (var i = 0; i < vespene.length; i++){
     setTimeout(function(){
       vespeneWrapper.removeChild(vespeneScored);
     }, 3000);
+    // Audio
+    vespeneSound.play();
     hideButtons();
+    achievements();
   };
 };
 
@@ -303,6 +446,10 @@ scvOnMineral.onclick = function(){
     newScv.classList.add('scv');
     newScv.src = 'assets/img/scv/'+Math.floor((Math.random() * 12))+'.png';
     mineralWorkers.appendChild(newScv);
+    // Count
+    scvOnMineralCount++;
+    // Audio SCV Spawning
+    scvSpawningSound.play();
     // Add autoclick
     setInterval(function(){
       mineralScore += scvMineralMiningPower;
@@ -319,10 +466,18 @@ scvOnMineral.onclick = function(){
       setTimeout(function(){
         mineralWrapper.removeChild(mineralScored);
       }, 3000);
+      // Audio Mining
+      var audio = new Audio('assets/sounds/scvRepair/'+Math.floor((Math.random() * 5))+'.wav');
+      audio.volume = 0.3;
+      audio.play();
       hideButtons();
+      achievements();
     }, scvMineralMiningSpeed);
+  } else {
+    disabledSound.play();
   }
   hideButtons();
+  achievements();
 };
 
 // Add a SCV Mining Vespene
@@ -339,6 +494,10 @@ scvOnVespene.onclick = function(){
     newScv.classList.add('scv');
     newScv.src = 'assets/img/scv/'+Math.floor((Math.random() * 12))+'.png';
     vespeneWorkers.appendChild(newScv);
+    // Count
+    scvOnVespeneCount++;
+    // Audio SCV Spawning
+    scvSpawningSound.play();
     // Add autoclick
     setInterval(function(){
       vespeneScore += scvVespeneMiningPower;
@@ -355,10 +514,16 @@ scvOnVespene.onclick = function(){
       setTimeout(function(){
         vespeneWrapper.removeChild(vespeneScored);
       }, 3000);
+      // Audio
+      vespeneSound.play();
       hideButtons();
+      achievements();
     }, scvVespeneMiningSpeed);
+  } else {
+    disabledSound.play();
   }
   hideButtons();
+  achievements();
 };
 
 // Add a temporary Mule Mining Minerals
@@ -374,18 +539,45 @@ muleOnMineral.onclick = function(){
     newMule.class = 'mule';
     newMule.src = 'assets/img/mule/'+Math.floor((Math.random() * 25))+'.png';
     mineralWorkers.appendChild(newMule);
+    // Count
+    muleOnMineralCount++;
+    // Audio Mule Spawning
+    muleSpawningSound.play();
     // Add autoclick
     var mining = setInterval(function(){
       mineralScore += muleMineralMiningPower;
       mineralDisplay.innerHTML = mineralScore;
+      // Scored +X
+      var mineralScored = document.createElement('span');
+      mineralScored.classList.add('mineral-scored');
+      mineralScored.innerHTML = "+"+scvMineralMiningPower;
+      mineralScored.style.color = 'pink';
+      mineralWrapper.appendChild(mineralScored);
+      var trick = mineralWrapper.offsetWidth;
+      mineralScored.style.top = '300px';
+      mineralScored.style.opacity = '0';
+      setTimeout(function(){
+        mineralWrapper.removeChild(mineralScored);
+      }, 3000);
+      // Audio Mining
+      var audio = new Audio('assets/sounds/scvRepair/'+Math.floor((Math.random() * 5))+'.wav');
+      audio.volume = 0.3;
+      audio.play();
+      hideButtons();
+      achievements();
     }, muleMineralMiningSpeed);
     // Remove Mule
     setTimeout(function(){
       clearInterval(mining);
       mineralWorkers.removeChild(newMule);
+      // Count
+      muleOnMineralCount--;
     }, muleMineralDuration);
+  } else {
+    disabledSound.play();
   }
   hideButtons();
+  achievements();
 };
 
 // Add a temporary Mule Mining Vespene
@@ -401,18 +593,39 @@ muleOnVespene.onclick = function(){
     newMule.class = 'mule';
     newMule.src = 'assets/img/mule/'+Math.floor((Math.random() * 25))+'.png';
     vespeneWorkers.appendChild(newMule);
+    // Audio Mule Spawning
+    muleSpawningSound.play();
     // Add autoclick
     var mining = setInterval(function(){
       vespeneScore += muleVespeneMiningPower;
       vespeneDisplay.innerHTML = vespeneScore;
+      // Scored +X
+      var vespeneScored = document.createElement('span');
+      vespeneScored.classList.add('vespene-scored');
+      vespeneScored.innerHTML = "+"+scvVespeneMiningPower;
+      vespeneScored.style.color = 'pink';
+      vespeneWrapper.appendChild(vespeneScored);
+      var trick = vespeneWrapper.offsetWidth;
+      vespeneScored.style.top = '300px';
+      vespeneScored.style.opacity = '0';
+      setTimeout(function(){
+        vespeneWrapper.removeChild(vespeneScored);
+      }, 3000);
+      // Audio
+      vespeneSound.play();
+      hideButtons();
+      achievements();
     }, muleVespeneMiningSpeed);
     // Remove Mule
     setTimeout(function(){
       clearInterval(mining);
       vespeneWorkers.removeChild(newMule);
     }, muleVespeneDuration);
+  } else {
+    disabledSound.play();
   }
   hideButtons();
+  achievements();
 };
 
 // Upgrade Mining Power and Speed for SCV Mining Minerals
@@ -434,8 +647,14 @@ scvMineralUpgrade.onclick = function(){
     scvMineralMiningSpeed = Math.floor(scvMineralMiningSpeed * scvMineralMiningSpeedAugmentation);
     // Change Price Augmentation Ratio
     scvOnMineralPriceAugmentation += 0.2;
+    // Count
+    scvMineralUpgradeCount++;
+    upgradeSound.play();
+  } else {
+    disabledSound.play();
   }
   hideButtons();
+  achievements();
 };
 
 // Upgrade Mining Power and Speed for SCV Mining Vespene Gas
@@ -457,8 +676,14 @@ scvVespeneUpgrade.onclick = function(){
     scvVespeneMiningSpeed = Math.floor(scvVespeneMiningSpeed * scvVespeneMiningSpeedAugmentation);
     // Change Price Augmentation Ratio
     scvOnVespenePriceAugmentation += 0.1;
+    // Count
+    scvVespeneUpgradeCount++;
+    upgradeSound.play();
+  } else {
+    disabledSound.play();
   }
   hideButtons();
+  achievements();
 };
 
 // Upgrade Mining Power and Speed for Mule Mining Minerals
@@ -483,8 +708,14 @@ muleMineralUpgrade.onclick = function(){
     muleOnMineral_VespenePrice = Math.floor(muleOnMineral_VespenePrice * muleOnMineralPriceAugmentation);
     muleOnMineral_MineralPriceDisplay.innerHTML = muleOnMineral_MineralPrice;
     muleOnMineral_VespenePriceDisplay.innerHTML = muleOnMineral_VespenePrice;
+    // Count
+    muleMineralUpgradeCount++;
+    upgradeSound.play();
+  } else {
+    disabledSound.play();
   }
   hideButtons();
+  achievements();
 };
 
 // Upgrade Mining Power and Speed for Mule Mining Vespene
@@ -509,8 +740,14 @@ muleVespeneUpgrade.onclick = function(){
     muleOnVespene_VespenePrice = Math.floor(muleOnVespene_VespenePrice * muleOnVespenePriceAugmentation);
     muleOnVespene_MineralPriceDisplay.innerHTML = muleOnVespene_MineralPrice;
     muleOnVespene_VespenePriceDisplay.innerHTML = muleOnVespene_VespenePrice;
+    // Count
+    muleVespeneUpgradeCount++;
+    upgradeSound.play();
+  } else {
+    disabledSound.play();
   }
   hideButtons();
+  achievements();
 };
 
 // Upgrade Commander Mining Power !
@@ -529,6 +766,13 @@ commanderMiningUpgrade.onclick = function(){
     // Change Mining Power
     commanderMiningPower = Math.floor(commanderMiningPower * commanderMiningPowerAugmentation);
     // commanderMiningPowerAugmentation = commanderMiningPowerAugmentation * 0.9;
+
+    // Count
+    commanderMiningUpgradeCount++;
+    researchSound.play();
+  } else {
+    disabledSound.play();
   }
   hideButtons();
+  achievements();
 };

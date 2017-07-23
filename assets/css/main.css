@@ -24,8 +24,9 @@ body {
   padding: 0;
   background: grey;
   font-family: "Abel", sans-serif;
-  background: url('../img/bg3.png');
+  background: url('../img/bg3.png') no-repeat;
   background-size: cover;
+  background-position: center;
   color: #fff;
 }
 
@@ -123,11 +124,6 @@ body {
   justify-content: center;
 }
 
-#advisor {
-  border: 1px solid rgba(255,255,255,.5);
-  border-radius: 10px;
-}
-
 .mineral-scored {
   position: absolute;
   font-size: 16px;
@@ -167,4 +163,32 @@ body {
 
 .mineral-icon, .vespene-icon {
   padding: 0 0.3em;
+}
+
+.achievement {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0.5em 0.5em;
+  padding: 0.7em 1.3em;
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 10px;
+  text-align: center;
+  background: rgba(0,0,0,.5);
+  cursor: default;
+  transition: .3s;
+  opacity: 0;
+}
+
+.advisor {
+  margin-left: 1em;
+  margin-bottom: 0.7em;
+  float: right;
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 10px;
+}
+
+.achievement .title {
+  text-transform: uppercase;
+  font-size: 1.2em;
 }
