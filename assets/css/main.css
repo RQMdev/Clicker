@@ -165,10 +165,32 @@ body {
   padding: 0 0.3em;
 }
 
-.achievement {
+#achievement-counter-wrapper {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+#terran {
+  float: left;
+  width: 35px;
+  height: auto;
+}
+
+#achievement-display {
+  float: left;
+  font-size: 1.7em;
+  margin-left: 0.5em;
+  margin-top: 0.2em;
+}
+
+#achievement-wrapper {
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+.achievement {
   margin: 0.5em 0.5em;
   padding: 0.7em 1.3em;
   border: 1px solid rgba(255,255,255,.5);

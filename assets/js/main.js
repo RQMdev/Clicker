@@ -2,12 +2,15 @@
 var body = document.getElementsByTagName('body')[0];
 var mineralWrapper = document.getElementById('mineral-wrapper');
 var vespeneWrapper = document.getElementById('vespene-wrapper');
+var achievementWrapper = document.getElementById('achievement-wrapper');
 // Clickers
 var mineral = document.getElementsByClassName('mineral');
 var vespene = document.getElementsByClassName('vespene');
+var scv = document.getElementsByClassName('scv');
 // Score Displays
 var mineralDisplay = document.getElementById('mineral-display');
 var vespeneDisplay = document.getElementById('vespene-display');
+var achievementDisplay = document.getElementById('achievement-display');
 // SCV Price Displays
 var scvOnMineralPriceDisplay = document.getElementById('scv-on-mineral-price-display');
 var scvOnVespenePriceDisplay = document.getElementById('scv-on-vespene-price-display');
@@ -70,10 +73,12 @@ var scvVespeneUpgradeCount = 0;
 var muleMineralUpgradeCount = 0;
 var muleVespeneUpgradeCount = 0;
 var commanderMiningUpgradeCount = 0;
+var scvCount = 0;
 
 // Score
 var mineralScore = 0;
 var vespeneScore = 0;
+var achievementScore = 0;
 // SCV and Mules Prices
 var scvOnMineralPrice = 100;
 var scvOnVespenePrice = 100;
@@ -90,8 +95,8 @@ var muleMineralUpgrade_MineralPrice = 400;
 var muleMineralUpgrade_VespenePrice = 300;
 var muleVespeneUpgrade_MineralPrice = 400;
 var muleVespeneUpgrade_VespenePrice = 300;
-var commanderMiningUpgrade_MineralPrice = 100;
-var commanderMiningUpgrade_VespenePrice = 100;
+var commanderMiningUpgrade_MineralPrice = 200;
+var commanderMiningUpgrade_VespenePrice = 200;
 
 // Command Center Prices Augmentation
 var scvOnMineralPriceAugmentation = 1.3;
@@ -158,6 +163,7 @@ var feelThePower = false;
 var thatsABeginning = false;
 var insufficientVespeneGas = false;
 var youAreOnTheRightPath = false;
+var youKnowItsUseless = false;
 
 function hideButtons(){
   if ( mineralScore >= scvOnMineralPrice){
@@ -231,8 +237,24 @@ function hideButtons(){
     commanderMiningUpgrade.style.color = '#666';
     commanderMiningUpgrade.style.borderColor = 'rgba(255,255,255,.0)';
   }
+  // Refresh that var cause it aint any SCV at the start of the game ;)
+  scv = document.getElementsByClassName('scv');
+  // Click on SCV to make those Nostalgia Sound and to change Sprite :)
+  for (var i = 0; i < scv.length; i++ ){
+    scv[i].onclick = function(){
+      var current = this;
+      current.src = 'assets/img/scv/'+Math.floor((Math.random() * 12))+'.png';
+      var audio = new Audio('assets/sounds/scv/'+Math.floor((Math.random() * 15))+'.wav');
+      audio.volume = 0.6;
+      audio.play();
+      scvCount++;
+      hideButtons();
+      achievements();
+    }
+  }
 };
 
+// Create the PopUp
 function achievementPopUp(title, text){
   var achievementDiv = document.createElement('div');
   achievementDiv.classList.add('achievement');
@@ -247,62 +269,73 @@ function achievementPopUp(title, text){
   var achievementP = document.createElement('p');
   achievementP.innerHTML = text;
   achievementDiv.appendChild(achievementP);
-  body.appendChild(achievementDiv);
+  achievementWrapper.appendChild(achievementDiv);
   var trick = achievementDiv.offsetWidth;
   achievementDiv.style.opacity = '1';
   setTimeout(function(){
     achievementDiv.style.opacity = '0';
   }, 8000);
   setTimeout(function(){
-    body.removeChild(achievementDiv);
+    achievementWrapper.removeChild(achievementDiv);
   }, 8350);
 };
 
-
+// Add a PopUp for different Achievement / Tutorial
 function achievements(){
   if ( mineralScore > 0 && mineralRushPioneer == false){
       achievementPopUp('Mineral Rush Pioneer', 'Congrats! You find how to be rich! Keep mining before the Zerg attacks!');
     mineralRushPioneer = true;
+    achievementScore++;
   }
   if ( vespeneScore > 0 && vespeneRushPioneer == false){
       achievementPopUp('Vespene Rush Pioneer', 'What matter ain\'t always shiny. Vespine Gas will help you build better workers and upgrade them.');
     vespeneRushPioneer = true;
+    achievementScore++;
   }
   if ( scvOnMineralCount > 0 && youAintAlone == false){
     achievementPopUp('You Ain\'t Alone', 'SCV are going to mine for you, treat them nicely.');
     youAintAlone = true;
+    achievementScore++;
   }
   if ( scvOnVespeneCount > 0 && thereIsALeak == false){
     achievementPopUp('There Is A Gas Leak Boys', 'Smells weird here, that SCV is going to bring us some of this gas.');
     thereIsALeak = true;
+    achievementScore++;
   }
   if ( muleOnMineralCount > 0 && muleGoesFast == false){
     achievementPopUp('Mule Goes Fast', 'This is reinforcement ! Mules won\'t last forever but they\'re a bloody damn help!');
     muleGoesFast = true;
+    achievementScore++;
   }
   if ( muleOnVespeneCount > 0 && thereIsAReservoirHere == false){
     achievementPopUp('There is a reservoir here', 'Looks like your boys have found a big reservoir near by, let\'s dig it!');
     thereIsAReservoirHere = true;
+    achievementScore++;
   }
   if ( scvMineralUpgradeCount > 0 && betterToolsForBetterWorkers == false){
     achievementPopUp('Better tools for better workers', 'Now your SCV are going faster and they can carry more minerals, that\'s seem to be a good deal!');
     betterToolsForBetterWorkers = true;
+    achievementScore++;
   }
   if ( scvVespeneUpgradeCount > 0 && letsGoDeeper == false){
     achievementPopUp('let\'s go deeper', 'SCV are now gathering gas way better! Be careful with that gas though, we\'re not sure if it\'s stable...');
     letsGoDeeper = true;
+    achievementScore++;
   }
   if ( muleMineralUpgradeCount > 0 && eenyMeenyMiningMoe == false){
     achievementPopUp('Eeny Meeny Mining Moe', 'Catch a Zergling by the toe, if he hollers, don\'t let him go!');
     eenyMeenyMiningMoe = true;
+    achievementScore++;
   }
   if ( muleVespeneUpgradeCount > 0 && fasterScvMineMine == false){
     achievementPopUp('Faster, Scv! Mine! Mine!', 'Keep on grinding, Pussycat.');
     fasterScvMineMine = true;
+    achievementScore++;
   }
   if ( commanderMiningUpgradeCount > 0 && feelThePower == false){
     achievementPopUp('Feel the power', 'Now you can mine faster. Keep on clicking, the Swarm is not far away.');
     feelThePower = true;
+    achievementScore++;
   }
   if ( mineralScore >= 1000 && thatsABeginning == false){
     achievementPopUp('That\'s a beginning', 'Not enough minerals. Just kidding, don\'t forget to spend what you have though.');
@@ -310,6 +343,7 @@ function achievements(){
     audio.volume = 0.5;
     audio.play();
     thatsABeginning = true;
+    achievementScore++;
   }
   if ( vespeneScore >= 1000 && insufficientVespeneGas == false){
     achievementPopUp('insufficient vespene gas', 'You want millions of gas! but i guess that\'s a start.');
@@ -317,6 +351,7 @@ function achievements(){
     audio.volume = 0.5;
     audio.play();
     insufficientVespeneGas = true;
+    achievementScore++;
   }
   if ( mineralScore >= 10000 && youAreOnTheRightPath == false){
     achievementPopUp('You are on the right path', '10,000 is good, we are close to build our first Battlecruiser, but it\'s an entire fleet we need against the Swarn.');
@@ -324,7 +359,15 @@ function achievements(){
     audio.volume = 0.5;
     audio.play();
     youAreOnTheRightPath = true;
+    achievementScore++;
   }
+  if ( scvCount >= 100 && youKnowItsUseless == false){
+    achievementPopUp('You know it\'s useless?', 'Come on, you\'ve clicked a thousand time on something totally useless. Focus dude, you are here to work!');
+    youKnowItsUseless = true;
+    achievementScore++;
+  }
+  // refresh achievement Display
+  achievementDisplay.innerHTML = achievementScore;
 };
 
 
@@ -334,6 +377,7 @@ body.onload = function(){
   // Score Display
   mineralDisplay.innerHTML = mineralScore;
   vespeneDisplay.innerHTML = vespeneScore;
+  achievementDisplay.innerHTML = achievementScore;
 
   // SCV Prices
   scvOnMineralPriceDisplay.innerHTML = scvOnMineralPrice;
@@ -550,7 +594,7 @@ muleOnMineral.onclick = function(){
       // Scored +X
       var mineralScored = document.createElement('span');
       mineralScored.classList.add('mineral-scored');
-      mineralScored.innerHTML = "+"+scvMineralMiningPower;
+      mineralScored.innerHTML = "+"+muleMineralMiningPower;
       mineralScored.style.color = 'pink';
       mineralWrapper.appendChild(mineralScored);
       var trick = mineralWrapper.offsetWidth;
@@ -602,7 +646,7 @@ muleOnVespene.onclick = function(){
       // Scored +X
       var vespeneScored = document.createElement('span');
       vespeneScored.classList.add('vespene-scored');
-      vespeneScored.innerHTML = "+"+scvVespeneMiningPower;
+      vespeneScored.innerHTML = "+"+muleVespeneMiningPower;
       vespeneScored.style.color = 'pink';
       vespeneWrapper.appendChild(vespeneScored);
       var trick = vespeneWrapper.offsetWidth;
