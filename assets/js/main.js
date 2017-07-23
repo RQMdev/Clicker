@@ -165,6 +165,7 @@ var insufficientVespeneGas = false;
 var youAreOnTheRightPath = false;
 var youKnowItsUseless = false;
 var thisIsBusiness = false;
+var inAHurry = false;
 
 function hideButtons(){
   if ( mineralScore >= scvOnMineralPrice){
@@ -370,6 +371,11 @@ function achievements(){
   if ( (scvOnMineralCount + scvOnVespeneCount) >= 10 && thisIsBusiness == false){
     achievementPopUp('this is bussiness', 'You got 10 SCV deployed, we will need many more, but i guess it\'s a start.');
     thisIsBusiness = true;
+    achievementScore++;
+  }
+  if ( (muleOnMineralCount + muleOnVespeneCount) >= 6 && inAHurry == false){
+    achievementPopUp('In a hurry', 'I\'ve only see once a hurry like this... zerglings.');
+    inAHurry = true;
     achievementScore++;
   }
   // refresh achievement Display
