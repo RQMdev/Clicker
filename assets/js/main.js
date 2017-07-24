@@ -419,6 +419,7 @@ body.onload = function(){
 
   hideButtons();
   achievements();
+  achievementPopUp('Welcome aboard', 'Hello commander, you are supervising the mineral and vespine gas gathering operation on C-4577. The planet might be inhabited, please, be careful.');
 };
 
 // Refreshing browser trick (doesnt seem to work :p)
