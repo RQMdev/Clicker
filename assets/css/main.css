@@ -60,6 +60,8 @@ body {
 #mineral-workers {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  max-width: 50vw;
 }
 
 #vespene-wrapper {
@@ -85,6 +87,8 @@ body {
 #vespene-workers {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  max-width: 50vw;
 }
 
 

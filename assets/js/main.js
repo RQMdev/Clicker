@@ -82,19 +82,19 @@ var achievementScore = 0;
 // SCV and Mules Prices
 var scvOnMineralPrice = 100;
 var scvOnVespenePrice = 100;
-var muleOnMineral_MineralPrice = 200;
-var muleOnMineral_VespenePrice = 100;
-var muleOnVespene_MineralPrice = 200;
-var muleOnVespene_VespenePrice = 100;
+var muleOnMineral_MineralPrice = 100;
+var muleOnMineral_VespenePrice = 200;
+var muleOnVespene_MineralPrice = 100;
+var muleOnVespene_VespenePrice = 200;
 // Upgrades Prices
 var scvMineralUpgrade_MineralPrice = 200;
 var scvMineralUpgrade_VespenePrice = 200;
 var scvVespeneUpgrade_MineralPrice = 200;
 var scvVespeneUpgrade_VespenePrice = 200;
-var muleMineralUpgrade_MineralPrice = 400;
-var muleMineralUpgrade_VespenePrice = 300;
-var muleVespeneUpgrade_MineralPrice = 400;
-var muleVespeneUpgrade_VespenePrice = 300;
+var muleMineralUpgrade_MineralPrice = 300;
+var muleMineralUpgrade_VespenePrice = 400;
+var muleVespeneUpgrade_MineralPrice = 300;
+var muleVespeneUpgrade_VespenePrice = 400;
 var commanderMiningUpgrade_MineralPrice = 200;
 var commanderMiningUpgrade_VespenePrice = 200;
 
@@ -139,10 +139,10 @@ var muleMineralMiningSpeed = 500;
 var muleVespeneMiningSpeed = 500;
 
 // Mining Speed Augmentation
-var scvMineralMiningSpeedAugmentation = 0.9;
-var scvVespeneMiningSpeedAugmentation = 0.9;
-var muleMineralMiningSpeedAugmentation = 0.9;
-var muleVespeneMiningSpeedAugmentation = 0.9;
+var scvMineralMiningSpeedAugmentation = 1;
+var scvVespeneMiningSpeedAugmentation = 1;
+var muleMineralMiningSpeedAugmentation = 1;
+var muleVespeneMiningSpeedAugmentation = 1;
 
 // Mules Duration
 var muleMineralDuration = 15000;
@@ -158,11 +158,14 @@ var thereIsAReservoirHere = false;
 var betterToolsForBetterWorkers = false;
 var letsGoDeeper = false;
 var eenyMeenyMiningMoe = false;
-var fasterScvMineMine = false;
+var fasterMuleMineMine = false;
 var feelThePower = false;
 var thatsABeginning = false;
 var insufficientVespeneGas = false;
 var youAreOnTheRightPath = false;
+var pleasePutYourMaskOn = false;
+var soYouLikeToCollectShinyThings = false;
+var thatsGas = false;
 var youKnowItsUseless = false;
 var thisIsBusiness = false;
 var inAHurry = false;
@@ -184,7 +187,7 @@ function hideButtons(){
     scvOnVespene.style.borderColor = 'rgba(255,255,255,.0)';
   }
 
-  if (mineralScore >= muleOnMineral_MineralPrice && vespeneScore >= muleOnMineral_VespenePrice){
+  if (mineralScore >= muleOnMineral_MineralPrice && vespeneScore >= muleOnMineral_VespenePrice && muleOnMineralCount < 3){
     muleOnMineral.style.color = '#fff';
     muleOnMineral.style.borderColor = 'rgba(255,255,255,.5)';
   } else {
@@ -192,7 +195,7 @@ function hideButtons(){
     muleOnMineral.style.borderColor = 'rgba(255,255,255,.0)';
   }
 
-  if (mineralScore >= muleOnVespene_MineralPrice && vespeneScore >= muleOnVespene_VespenePrice){
+  if (mineralScore >= muleOnVespene_MineralPrice && vespeneScore >= muleOnVespene_VespenePrice && muleOnVespeneCount < 3){
     muleOnVespene.style.color = '#fff';
     muleOnVespene.style.borderColor = 'rgba(255,255,255,.5)';
   } else {
@@ -305,12 +308,12 @@ function achievements(){
     achievementScore++;
   }
   if ( muleOnMineralCount > 0 && muleGoesFast == false){
-    achievementPopUp('Mule Goes Fast', 'This is reinforcement ! Mules won\'t last forever but they\'re a bloody damn help!');
+    achievementPopUp('Mule Goes Fast', 'This is reinforcement ! Mules won\'t last forever but they\'re a bloody damn help! Keep in mind you can\'t have more than 3 Mules on Minerals.');
     muleGoesFast = true;
     achievementScore++;
   }
   if ( muleOnVespeneCount > 0 && thereIsAReservoirHere == false){
-    achievementPopUp('There is a reservoir here', 'Looks like your boys have found a big reservoir near by, let\'s dig it!');
+    achievementPopUp('There is a reservoir here', 'Looks like your boys have found a big reservoir near by, let\'s dig it! Keep in mind you can\'t have more than 3 Mules on Vespene Gas.');
     thereIsAReservoirHere = true;
     achievementScore++;
   }
@@ -329,9 +332,9 @@ function achievements(){
     eenyMeenyMiningMoe = true;
     achievementScore++;
   }
-  if ( muleVespeneUpgradeCount > 0 && fasterScvMineMine == false){
+  if ( muleVespeneUpgradeCount > 0 && fasterMuleMineMine == false){
     achievementPopUp('Faster, Scv! Mine! Mine!', 'Keep on grinding, Pussycat.');
-    fasterScvMineMine = true;
+    fasterMuleMineMine = true;
     achievementScore++;
   }
   if ( commanderMiningUpgradeCount > 0 && feelThePower == false){
@@ -363,6 +366,30 @@ function achievements(){
     youAreOnTheRightPath = true;
     achievementScore++;
   }
+  if ( vespeneScore >= 10000 && pleasePutYourMaskOn == false){
+    achievementPopUp('please Put Your Mask On', '10,000 Vespine Gas ! I Hope we won\'t have a leak...');
+    var audio = new Audio('assets/sounds/YouWin.wav');
+    audio.volume = 0.5;
+    audio.play();
+    pleasePutYourMaskOn = true;
+    achievementScore++;
+  }
+  if ( mineralScore >= 100000 && soYouLikeToCollectShinyThings == false){
+    achievementPopUp('so You Like To Collect Shiny Things', 'You have a great and shiny collection now, don\'t forget to spend resources, this is why they\'re here.');
+    var audio = new Audio('assets/sounds/YouWin.wav');
+    audio.volume = 0.5;
+    audio.play();
+    soYouLikeToCollectShinyThings = true;
+    achievementScore++;
+  }
+  if ( vespeneScore >= 100000 && thatsGas == false){
+    achievementPopUp('that\'s gas', '100.000 you did it! but we need sooo maaaaany mooooooore...');
+    var audio = new Audio('assets/sounds/YouWin.wav');
+    audio.volume = 0.5;
+    audio.play();
+    thatsGas = true;
+    achievementScore++;
+  }
   if ( scvCount >= 100 && youKnowItsUseless == false){
     achievementPopUp('You know it\'s useless?', 'Come on, you\'ve clicked a thousand time on something totally useless. Focus dude, you are here to work!');
     youKnowItsUseless = true;
@@ -378,8 +405,12 @@ function achievements(){
     inAHurry = true;
     achievementScore++;
   }
+  if (achievementScore == 20){
+    achievementDisplay.innerHTML = achievementScore +"/20 Good game, you've beat the game... for now!"
+  } else {
   // refresh achievement Display
   achievementDisplay.innerHTML = achievementScore;
+  }
 };
 
 
@@ -498,6 +529,8 @@ scvOnMineral.onclick = function(){
     // Change Price
     scvOnMineralPrice = Math.floor(scvOnMineralPrice * scvOnMineralPriceAugmentation);
     scvOnMineralPriceDisplay.innerHTML = scvOnMineralPrice;
+    // Change Price Augmentation Ratio
+    scvOnMineralPriceAugmentation += 0.2;
     // Create New SCV
     var newScv = document.createElement('img');
     newScv.classList.add('scv');
@@ -546,6 +579,8 @@ scvOnVespene.onclick = function(){
     // Change Price
     scvOnVespenePrice = Math.floor(scvOnVespenePrice * scvOnVespenePriceAugmentation);
     scvOnVespenePriceDisplay.innerHTML = scvOnVespenePrice;
+    // Change Price Augmentation Ratio
+    scvOnVespenePriceAugmentation += 0.2;
     // Create New SCV
     var newScv = document.createElement('img');
     newScv.classList.add('scv');
@@ -585,7 +620,7 @@ scvOnVespene.onclick = function(){
 
 // Add a temporary Mule Mining Minerals
 muleOnMineral.onclick = function(){
-  if (mineralScore >= muleOnMineral_MineralPrice && vespeneScore >= muleOnMineral_VespenePrice){
+  if (mineralScore >= muleOnMineral_MineralPrice && vespeneScore >= muleOnMineral_VespenePrice && muleOnMineralCount < 3 ){
     // Change Score
     mineralScore -= muleOnMineral_MineralPrice;
     vespeneScore -= muleOnMineral_VespenePrice;
@@ -639,7 +674,7 @@ muleOnMineral.onclick = function(){
 
 // Add a temporary Mule Mining Vespene
 muleOnVespene.onclick = function(){
-  if (mineralScore >= muleOnVespene_MineralPrice && vespeneScore >= muleOnVespene_VespenePrice){
+  if (mineralScore >= muleOnVespene_MineralPrice && vespeneScore >= muleOnVespene_VespenePrice && muleOnVespeneCount < 3){
     // Change Score
     mineralScore -= muleOnVespene_MineralPrice;
     vespeneScore -= muleOnVespene_VespenePrice;
@@ -700,14 +735,14 @@ scvMineralUpgrade.onclick = function(){
     // Change Prices
     scvMineralUpgrade_MineralPrice = Math.floor(scvMineralUpgrade_MineralPrice * scvMineralUpgrade_MineralPriceAugmentation);
     scvMineralUpgrade_VespenePrice = Math.floor(scvMineralUpgrade_VespenePrice * scvMineralUpgrade_VespenePriceAugmentation);
+    scvMineralUpgrade_MineralPriceAugmentation += 0.1;
+    scvMineralUpgrade_VespenePriceAugmentation += 0.1;
     scvMineralUpgrade_MineralPriceDisplay.innerHTML = scvMineralUpgrade_MineralPrice;
     scvMineralUpgrade_VespenePriceDisplay.innerHTML = scvMineralUpgrade_VespenePrice;
     // Change Mining Power
     scvMineralMiningPower = Math.floor(scvMineralMiningPower * scvMineralMiningPowerAugmentation);
     // Change Mining Speed
     scvMineralMiningSpeed = Math.floor(scvMineralMiningSpeed * scvMineralMiningSpeedAugmentation);
-    // Change Price Augmentation Ratio
-    scvOnMineralPriceAugmentation += 0.2;
     // Count
     scvMineralUpgradeCount++;
     upgradeSound.play();
@@ -729,6 +764,8 @@ scvVespeneUpgrade.onclick = function(){
     // Change Prices
     scvVespeneUpgrade_MineralPrice = Math.floor(scvVespeneUpgrade_MineralPrice * scvVespeneUpgrade_MineralPriceAugmentation);
     scvVespeneUpgrade_VespenePrice = Math.floor(scvVespeneUpgrade_VespenePrice * scvVespeneUpgrade_VespenePriceAugmentation);
+    scvVespeneUpgrade_MineralPriceAugmentation += 0.1;
+    scvVespeneUpgrade_VespenePriceAugmentation += 0.1;
     scvVespeneUpgrade_MineralPriceDisplay.innerHTML = scvVespeneUpgrade_MineralPrice;
     scvVespeneUpgrade_VespenePriceDisplay.innerHTML = scvVespeneUpgrade_VespenePrice;
     // Change Mining Power
@@ -736,7 +773,7 @@ scvVespeneUpgrade.onclick = function(){
     // Change Mining Speed
     scvVespeneMiningSpeed = Math.floor(scvVespeneMiningSpeed * scvVespeneMiningSpeedAugmentation);
     // Change Price Augmentation Ratio
-    scvOnVespenePriceAugmentation += 0.1;
+    scvOnVespenePriceAugmentation += 0.2;
     // Count
     scvVespeneUpgradeCount++;
     upgradeSound.play();
@@ -758,6 +795,8 @@ muleMineralUpgrade.onclick = function(){
     // Change Upgrade Prices
     muleMineralUpgrade_MineralPrice = Math.floor(muleMineralUpgrade_MineralPrice * muleMineralUpgrade_MineralPriceAugmentation);
     muleMineralUpgrade_VespenePrice = Math.floor(muleMineralUpgrade_VespenePrice * muleMineralUpgrade_VespenePriceAugmentation);
+    muleMineralUpgrade_MineralPriceAugmentation += 0.1;
+    muleMineralUpgrade_VespenePriceAugmentation += 0.1;
     muleMineralUpgrade_MineralPriceDisplay.innerHTML = muleMineralUpgrade_MineralPrice;
     muleMineralUpgrade_VespenePriceDisplay.innerHTML = muleMineralUpgrade_VespenePrice;
     // Change Mining Power
@@ -790,6 +829,8 @@ muleVespeneUpgrade.onclick = function(){
     // Change Upgrade Prices
     muleVespeneUpgrade_MineralPrice = Math.floor(muleVespeneUpgrade_MineralPrice * muleVespeneUpgrade_MineralPriceAugmentation);
     muleVespeneUpgrade_VespenePrice = Math.floor(muleVespeneUpgrade_VespenePrice * muleVespeneUpgrade_VespenePriceAugmentation);
+    muleVespeneUpgrade_MineralPriceAugmentation += 0.1;
+    muleVespeneUpgrade_VespenePriceAugmentation += 0.1;
     muleVespeneUpgrade_MineralPriceDisplay.innerHTML = muleVespeneUpgrade_MineralPrice;
     muleVespeneUpgrade_VespenePriceDisplay.innerHTML = muleVespeneUpgrade_VespenePrice;
     // Change Mining Power
@@ -822,11 +863,13 @@ commanderMiningUpgrade.onclick = function(){
     // Change Price
     commanderMiningUpgrade_MineralPrice = Math.floor(commanderMiningUpgrade_MineralPrice * commanderMiningUpgrade_MineralPriceAugmentation);
     commanderMiningUpgrade_VespenePrice = Math.floor(commanderMiningUpgrade_VespenePrice * commanderMiningUpgrade_VespenePriceAugmentation);
+    commanderMiningUpgrade_MineralPriceAugmentation += 0.1;
+    commanderMiningUpgrade_VespenePriceAugmentation += 0.1;
     commanderMiningUpgrade_MineralPriceDisplay.innerHTML = commanderMiningUpgrade_MineralPrice;
     commanderMiningUpgrade_VespenePriceDisplay.innerHTML = commanderMiningUpgrade_VespenePrice;
     // Change Mining Power
     commanderMiningPower = Math.floor(commanderMiningPower * commanderMiningPowerAugmentation);
-    // commanderMiningPowerAugmentation = commanderMiningPowerAugmentation * 0.9;
+    // commanderMiningPowerAugmentation = commanderMiningPowerAugmentation * 0.9; BUGGGGG :)
 
     // Count
     commanderMiningUpgradeCount++;
